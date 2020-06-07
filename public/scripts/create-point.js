@@ -1,4 +1,5 @@
 document.querySelector("select[name=uf]").addEventListener("change", getCities);
+document.querySelector("select[name=cidade]").addEventListener("change", getCity);
 document.querySelector("button[type=submit]").addEventListener("click", enviarForm);
 
 
@@ -11,8 +12,16 @@ function populateUFs(){
     requisicaoFetch(url,ufSelect);
 }
 
+function getCity(event){
+    const cityInput = document.querySelector("input[name=city]");
+
+    const indexOfSelectedCity = event.target.selectedIndex;
+
+    cityInput.value = event.target.options[indexOfSelectedCity].text;
+}
+
 function getCities(event) {
-    const citiesSelect = document.querySelector("select[name=city]");
+    const citiesSelect = document.querySelector("select[name=cidade]");
     const stateInput = document.querySelector("input[name=state]");
 
 
@@ -25,6 +34,7 @@ function getCities(event) {
     const ufValue = event.target.value;
     const url = `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${ufValue}/municipios`;
     requisicaoFetch(url,citiesSelect);
+    
     
     if(event.target.value != '')
         citiesSelect.removeAttribute('disabled');
